@@ -22,6 +22,10 @@ class Boomerang {
     // Идём вправо.
     this.position += 1;
   }
+
+
+
+  
 }
 
 module.exports = Boomerang;

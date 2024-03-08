@@ -19,16 +19,23 @@ class Game {
     this.enemy = new Enemy(trackLength - 1);
     this.view = new View();
     this.track = [];
+    this.track1 = [];
+    this.track2 = [];
+    this.track3 = [];
     this.regenerateTrack();
   }
 
   regenerateTrack() {
     // Сборка всего необходимого (герой, враг(и), оружие)
     // в единую структуру данных
-    this.track = (new Array(this.trackLength)).fill(' ');
-    this.track[this.hero.position] = this.hero.skin;
+    this.track1 = (new Array(this.trackLength)).fill(' ');
+    this.track2 = (new Array(this.trackLength)).fill(' ');
+    this.track3 = (new Array(this.trackLength)).fill(' ');
+     const tracks = [this.track1, this.track2, this.track3]
+    this.track = tracks[Math.floor(Math.random() * tracks.length)];
+    this.track2[this.hero.position] = this.hero.skin;
     this.track[this.enemy.position] = this.enemy.skin;
-    this.track[this.boomerang.position] = this.boomerang.skin;
+    this.track2[this.boomerang.position] = this.boomerang.skin;
   }
 
   check() {
@@ -41,7 +48,7 @@ class Game {
     } else if (this.boomerang.position >= this.hero.position) {
       this.boomerang.moveLeft();
     } else if (this.boomerang.position <= this.hero.position) {
-      console.log("Девочкам - удачи и работы, а третьей фазе - цвести и пахнуть! 🍻🍻🍻");
+      console.log("За деньги да");
       process.exit();
     }
   }
@@ -52,7 +59,7 @@ class Game {
       runInteractiveConsole;
       this.check();
       this.regenerateTrack();
-      this.view.render(this.track);
+      this.view.render(this.track1, this.track2, this.track3);
       this.enemy.moveLeft();
     }, 200);
   }
